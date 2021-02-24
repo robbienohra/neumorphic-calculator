@@ -11,12 +11,8 @@ parserOptions:
 extends:
   - standard
   - plugin:react/recommended
-  - prettier/@typescript-eslint
-  - prettier/babel
-  - prettier/standard
   - plugin:react-hooks/recommended
   - airbnb
-  - prettier/react
   - prettier
   - plugin:prettier/recommended
   - plugin:jsx-a11y/recommended
