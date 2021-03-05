@@ -1,5 +1,3 @@
-# eslint-prettier-boilerplate
+# neumorphic calculator
 
-- templated project with foundational eslint and prettier yaml configs and
-    requisite dev dependencies
-- may configure as needed
+- A neumoriphic styled calculator built in React, Next, and Sass

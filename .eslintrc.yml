@@ -16,11 +16,18 @@ extends:
   - prettier
   - plugin:prettier/recommended
   - plugin:jsx-a11y/recommended
+  - plugin:@typescript-eslint/recommended
+  - plugin:import/typescript
+  - plugin:jsdoc/recommended
+  - plugin:cypress/recommended
 plugins:
   - react
   - jsx-a11y
   - jest
+  - jsdoc
 globals:
+  React: true
+  JSX: true
   Atomics: readonly
   SharedArrayBuffer: readonly
 rules:
@@ -28,6 +35,13 @@ rules:
   prettier/prettier:
     - error
     - usePrettierrc: true
+  import/extensions:
+    - error
+    - ignorePackages
+    - ts: never
+      tsx: never
+      js: never
+      jsx: never
   import/no-extraneous-dependencies:
     - error
     - devDependencies: true
@@ -43,6 +57,13 @@ rules:
   react/prop-types: 0
   react/react-in-jsx-scope: off
   react/jsx-props-no-spreading: off
+  react/jsx-filename-extension:
+    - error
+    - extensions:
+        - .js
+        - .jsx
+        - .ts
+        - .tsx
   no-console: off
   camelcase: off
   no-else-return: off

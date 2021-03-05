@@ -1,0 +1,5 @@
+import styles from './Display.module.scss';
+
+export const Display = ({ display }: { display: string }): JSX.Element => (
+  <div id="display" className={styles.display}>{display}</div>
+);
