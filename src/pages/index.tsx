@@ -42,6 +42,13 @@ export default function App(): JSX.Element {
       >
         +
       </button>
+      <button
+        onClick={() => {
+          dispatch({ key: '=', numeric: false });
+        }}
+      >
+        =
+      </button>
     </>
   );
 }
