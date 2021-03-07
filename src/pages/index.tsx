@@ -10,9 +10,15 @@ import { Display } from '../components/Display';
  */
 export default function App(): JSX.Element {
   const [state, dispatch] = useReducer(keyReducer, initial);
+
+  console.log(state);
   return (
     <>
-      <Display display={state.display} />
+      <Display
+        display={
+          state.operands.length === 1 ? state.operands[0] : state.operands[1]
+        }
+      />
       <button
         onClick={() => {
           dispatch({ key: '0', numeric: true });

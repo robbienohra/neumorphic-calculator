@@ -3,10 +3,8 @@
  * one of current total or value is null depending on state op operation
  */
 export type State = {
-  display: string;
-  operand: string;
-  operator: string;
-  total: string;
+  operands: Array<string>;
+  operators: Array<string>;
 };
 
 /**
@@ -21,4 +19,9 @@ export type Action = {
    * indicates if key is numeric or an operation
    */
   numeric: boolean;
+};
+
+export type Key = {
+  key: string;
+  value: string;
 };

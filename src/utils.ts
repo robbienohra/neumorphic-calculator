@@ -2,30 +2,30 @@ import Big from 'big.js';
 import { State } from './types';
 
 export const initial: State = {
-  display: '0',
-  operand: '0',
-  total: '0',
-  operator: null,
+  operands: ['0'],
+  operators: [],
 };
 
 /**
  * perform given operation
  *
- * @param {string} total - current cached total
- * @param {string} operand - current cached operand
- * @param {string} key - current key selected
+ * @param {Array<string>} operands - operand values
+ * @param {string} operator - current operator selected
  *
  * @returns {string} - operation result
  */
-export function operate(total: string, operand: string, key: string): string {
-  const x = new Big(total);
-  const y = new Big(operand);
+export function operate(operands: Array<string>, operator: string): string {
+  const x = new Big(operands[0]);
+  const y = new Big(operands[1]);
+  /**
+   * case equals
+   */
 
-  switch (key) {
+  switch (operator) {
     case '+':
       return x.add(y).toString();
     default:
-      return total;
+      return x.add(y).toString();
   }
 }
 
@@ -37,58 +37,55 @@ export function operate(total: string, operand: string, key: string): string {
  * @returns {State} - new state
  */
 export function handleNumeric(s: State, key: string): State {
-  const { operand, operator } = s;
+  const { operands, operators } = s;
 
-  /**
-   * no operator has been clicked yet
-   * 0 -> 1 or 1 -> 12
-   */
-  if (!operator) {
-    /**
-     * null operand or null total case
-     */
+  if (operands.length === 1) {
+    switch (operators.length) {
+      case 0:
+        /**
+         * [0] -> [1]
+         * [1] -> [12]
+         */
 
-    /**
-     * 0 -> 0
-     */
-    if (operand === '0' && key === '0') {
-      return s;
+        if (operands[0] === '0') {
+          return {
+            ...s,
+            operands: [key],
+          };
+        }
+
+        return {
+          ...s,
+          operands: [operands[0] + key],
+        };
+      case 1:
+        return {
+          ...s,
+          operands: [...operands, key],
+        };
+      default:
+        return s;
     }
-
-    /**
-     * 0 -> 1
-     */
-    if (operand === '0' && key !== '0') {
-      /**
-       * replace 0 -> 1
-       */
-      return { ...s, operand: key, display: key };
-    }
-
-    /**
-     * 1 -> 12
-     */
-
-    const res = s.operand + key;
-
-    return {
-      ...s,
-      operand: res,
-      display: res,
-    };
   }
 
   /**
-   * operator is present
-   * operand not present
-   * operator would have nullified it
-   * 1 + -> 1 + 2
-   * or 1 + 2 -> 1 + 23
+   * operator case is 1 (guaranteed?)
+   * 2 operand case
+   * [1,0] -> [1, 2]
+   * [1,2] -> [1,23]
    */
 
-  const res = operand ? s.operand + key : key;
+  if (operands[1] === '0') {
+    return {
+      ...s,
+      operands: [...operands, key],
+    };
+  }
 
-  return { ...s, operand: res, display: res };
+  return {
+    ...s,
+    operands: [...operands, operands[1] + key],
+  };
 }
 
 /**
@@ -99,82 +96,107 @@ export function handleNumeric(s: State, key: string): State {
  * @returns {State} - new state
  */
 export function handleOperator(s: State, key: string): State {
-  const { operand, operator, total } = s;
+  const { operands, operators } = s;
 
-  /**
-   * 1 -> 1=
-   */
   if (key === '=') {
-    if (!operand) {
-      return s;
+    switch (operands.length) {
+      case 1:
+        switch (operators.length) {
+          case 0:
+            /**
+             * [1] -> [1]
+             */
+            return s;
+          case 1:
+            /**
+             * [1] [+] -> [1, 1 + 1] [+,=]
+             * cache current operand as first operand
+             * perform operation on self
+             */
+            return {
+              operators: [...operators, '='],
+              operands: [
+                operands[0],
+                operate([operands[0], operands[0]], operators[0]),
+              ],
+            };
+          default:
+            return s;
+        }
+      case 2:
+        /**
+         * [1, 2]  [+, =] -> [1, 2 +1]
+         */
+        if (operators[1] === '=') {
+          return {
+            ...s,
+            operands: [operands[0], operate(operands, operators[0])],
+          };
+        }
+        /**
+         * [1, 2] [+] -> [3] []
+         */
+        return {
+          operands: [operate(operands, operators[0])],
+          operators: [],
+        };
+      default:
+        return s;
     }
-
-    /**
-     * 1 + -> 1 + =
-     * interpreted as 1 + 1
-     */
-
-    const res = operate(operand, operand, operator)
-
-
-  }
-  /**
-   * operator not already present
-   * 1 -> 1 +
-   * set operator
-   * nullify operand and set total as current operand
-   *
-   * sub-case
-   * 1 -> 1 =
-   */
-  if (!operator) {
-    return { ...s, operand: null, total: operand, operator: key };
   }
 
   /**
-   * already an operator
-   * 1 + -> 1 -
-   * update operator if different from previoously set operator
-   */
-  if (key !== '=' && key !== operator) {
-    return { ...s, operator: key };
-  }
-
-  /**
-   * operand present but total not present
-   * 1 -> 1 +
-   * 1 moves from operand to total
+   * key not equal to =
    */
 
-  if (operand && !total) {
-    return { ...s, operator: key, total: operand, operand: null };
+  switch (operators.length) {
+    case 0:
+      /**
+       * operand length will be 1 in this case
+       * [1] [] -> [1] [+]
+       * 2 operands without an existing operator would not occur
+       */
+      return {
+        ...s,
+        operators: [key],
+      };
+
+    case 1:
+      /**
+       * if an operator already exists
+       */
+      switch (operands.length) {
+        case 1:
+          /**
+           * [1] [+] -> [1] [-]
+           * replace with new operator
+           */
+          return {
+            ...s,
+            operands: [key],
+          };
+        case 2:
+          /**
+           * incoming +
+           * [1, 2] [+] -> [3] [+]
+           * case of 1 + 2 +
+           */
+          return {
+            ...s,
+            operands: [operate(operands, key).toString()],
+            operators,
+          };
+        default:
+          return s;
+      }
+    case 2:
+      /**
+       * [+, =] example
+       * will always be associated with two operands
+       * [1, 2] [+,=] -> [2] [+]
+       */
+      return { operands: [operands[1]], operators: [key] };
+    default:
+      return s;
   }
-
-  /**
-   * cases
-   * 1 + -> 1 + =
-   * treat current total as operand and apply operator to self
-   */
-  if (key === '=') {
-    return s;
-  }
-
-  /**
-   * operand present and total present
-   * 1 + 2 -> 1 + 2 + case
-   * nullify operand
-   */
-  if (operand && total) {
-    const res: string = operate(total, operand, key);
-
-    return {
-      ...s,
-      total: res.toString(),
-      operand: null,
-      operator,
-      display: res.toString(),
-    };
-  }
-
-  return s;
 }
