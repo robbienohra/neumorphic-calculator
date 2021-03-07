@@ -1,31 +1,22 @@
-import { Key } from '../types';
+import styles from './Keypad.module.scss';
 
-/**
- * generate numeric key values
- *
- * @returns {Array<string>} - numeric key values
- */
-function range(): Array<Key> {
-  const res = [];
-
-  for (let i = 0; i < 10; i += 1) {
-    res.push({ key: i.toString(), val: i.toString() });
-  }
-
-  return res;
-}
+const keys: string[][] = [
+  ['7', '8', '9', '+'],
+  ['4', '5', '6', '-'],
+  ['1', '2', '3', '+'],
+];
 
 /**
  *  Numeric keypad
  *
  * @returns {JSX.Element} - numeric keypad component
- * @constructor - functional constructor
+ * @class - functional constructor
  */
 export default function Keypad(): JSX.Element {
   return (
-    <div>
-      {range().map((k) => {
-        return <div key={k.key}>{k.value}</div>;
+    <div className={styles.calculator}>
+      {keys.map((row: string[]) => {
+        return row.map((key) => <div key={key}>{key}</div>);
       })}
     </div>
   );

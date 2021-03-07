@@ -22,6 +22,6 @@ export type Action = {
 };
 
 export type Key = {
-  key: string;
-  value: string;
+  k: string;
+  v: string;
 };
