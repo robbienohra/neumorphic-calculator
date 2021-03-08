@@ -11,12 +11,14 @@ export const Key = memo(
     dispatch: Dispatch<Action>;
   }): JSX.Element => {
     return (
-      <div
-        onClick={() => dispatch({ key, numeric })}
-        className={styles.default}
-        data-cy={key}
-      >
-        {key}
+      <div className={styles.button}>
+        <button
+          onClick={() => dispatch({ key, numeric })}
+          className={styles.default}
+          data-cy={key}
+        >
+          {key}
+        </button>
       </div>
     );
   },
