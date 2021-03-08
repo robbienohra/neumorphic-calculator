@@ -1,9 +1,9 @@
 .calculator {
+  display: grid;
   box-shadow: 0 0 16px rgba(0,0,0,.1);
   border-radius: 20px;
   padding: 50px 40px 40px 40px;
   background-color: #DBE1E9;
-  max-width: 75vw;
 }
 
 .calculator > * + * {
