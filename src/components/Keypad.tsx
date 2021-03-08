@@ -1,7 +1,8 @@
+import { Dispatch } from 'react';
 import styles from '../styles/Keypad.module.scss';
 import { Key, Zero } from './Key';
 import { generateNumericKey, generateOperatorKey } from '../utils';
-import { Button } from '../types';
+import { Action, Button } from '../types';
 
 const topKeys: Button[] = ['C', '+/-', '%', '/'].map((operator) =>
   generateOperatorKey(operator)
@@ -17,14 +18,16 @@ const buttons: Button[][] = [
 ]);
 
 /**
- *  Numeric keypad
  *
- * @param root0
- * @param root0.dispatch
- * @returns {JSX.Element} - numeric keypad component
- * @class - functional constructor
+ * @param {(value: Action) => void} dispatch - core reducer
+ * @returns {JSX.Element}
+ * @class
  */
-export default function Keypad({ dispatch }): JSX.Element {
+export default function Keypad({
+  dispatch,
+}: {
+  dispatch: Dispatch<Action>;
+}): JSX.Element {
   return (
     <div className={styles.keypad}>
       {buttons.map((row: Button[]) => {
