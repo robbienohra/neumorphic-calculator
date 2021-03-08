@@ -1,4 +1,5 @@
-import styles from './Keypad.module.scss';
+import styles from '../styles/Keypad.module.scss';
+import { Key, Zero } from './Key';
 
 const keys: string[][] = [
   ['7', '8', '9', '+'],
@@ -14,10 +15,13 @@ const keys: string[][] = [
  */
 export default function Keypad(): JSX.Element {
   return (
-    <div className={styles.calculator}>
+    <div className={styles.keypad}>
       {keys.map((row: string[]) => {
-        return row.map((key) => <div key={key}>{key}</div>);
+        return row.map((key) => <Key key={key} val={key} />);
       })}
+      <Zero />
+      <Key key="." val="." />
+      <Key key="=" val="=" />
     </div>
   );
 }

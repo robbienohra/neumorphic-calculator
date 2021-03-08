@@ -1,0 +1,23 @@
+@mixin key {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // neumorhic styling
+  border-radius: 50px;
+  background: #e0e0e0;
+  box-shadow:  20px 20px 60px #bebebe,
+  -20px -20px 60px #ffffff;
+}
+
+.default {
+  @include key;
+  height: 4rem;
+  width: 4rem;
+}
+
+
+.zero {
+  @include key;
+  border-radius: 12px;
+  grid-column: span 2;
+}
