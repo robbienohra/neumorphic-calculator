@@ -111,6 +111,23 @@ export function handleOperator(s: State, key: string): State {
     return { operators: [], operands: ['0'] };
   }
 
+  if (key === '+/-') {
+    switch (operands.length) {
+      case 1:
+        return {
+          ...s,
+          operands: [new Big(operands[0]).times(-1).toString()],
+        };
+      case 2:
+        return {
+          ...s,
+          operands: [operands[0], new Big(operands[1]).times(-1).toString()],
+        };
+      default:
+        return s;
+    }
+  }
+
   if (key === '=') {
     switch (operands.length) {
       case 1:

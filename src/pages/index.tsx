@@ -5,7 +5,6 @@ import Calculator from '../components/Calculator';
  * @returns {JSX.Element} - entry point
  */
 export default function App(): JSX.Element {
-
   return (
     <main>
       <h1>Neumorphic calculator</h1>

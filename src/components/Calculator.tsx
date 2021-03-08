@@ -17,6 +17,7 @@ export default function Calculator() {
     keyReducer,
     initial
   );
+
   return (
     <div className={styles.calculator}>
       <Display
