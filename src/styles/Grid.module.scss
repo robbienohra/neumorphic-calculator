@@ -1,8 +1,10 @@
 
 .container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  // shorthand for grid template row and column
+  grid: repeat(3, 12vw) / auto-flow;
 }
+
 
 .item {
   border: red solid thin;

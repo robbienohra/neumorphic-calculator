@@ -6,6 +6,7 @@
 @mixin key {
   all: unset;
   display: grid;
+  grid-area: 1 / 1 / 2 / 2;
   justify-content: center;
   align-items: center;
   border-radius: 50px;
