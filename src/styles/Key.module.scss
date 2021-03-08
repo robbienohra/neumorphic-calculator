@@ -28,10 +28,11 @@
 
 .zero {
   @include key;
+  grid-area: unset;
   border-radius: 12px;
   grid-column: span 2;
 }
 
-.zero:hover {
+.zero:active {
   @include inset
 }
