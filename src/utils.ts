@@ -172,21 +172,15 @@ export function handleOperator(s: State, key: string): State {
         }
       case 2:
         /**
-         * [1, 2]  [+, =] -> [1, 2 +1]
-         */
-        if (operators[1] === '=') {
-          return {
-            ...s,
-            operands: [operands[0], operate(operands, operators[0])],
-          };
-        }
-        /**
-         * [1, 2] [+] -> [3] []
+         * both 1 and 2 operator case handled equivalently
+         * [1, 2]  [+] -> [1, 2 +1] [+]
+         * [1,2] [+,=] -> [1,2+1] [+, =]
          */
         return {
-          operands: [operate(operands, operators[0])],
-          operators: [],
+          ...s,
+          operands: [operands[0], operate(operands, operators[0])],
         };
+
       default:
         return s;
     }
