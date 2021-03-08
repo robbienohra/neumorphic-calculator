@@ -172,14 +172,35 @@ export function handleOperator(s: State, key: string): State {
         }
       case 2:
         /**
-         * both 1 and 2 operator case handled equivalently
-         * [1, 2]  [+] -> [1, 2 +1] [+]
-         * [1,2] [+,=] -> [1,2+1] [+, =]
+         * use cases
+         * click 1
+         * click +
+         * click 2
+         * click = -> 3
+         * click = -> 5
          */
-        return {
-          ...s,
-          operands: [operands[0], operate(operands, operators[0])],
-        };
+        switch (operators.length) {
+          case 1:
+            /**
+             * [1, 2] [+] -> [2, 3] [+, =]
+             * cache the second operand
+             */
+            return {
+              operators: [operators[0], '='],
+              operands: [operands[1], operate(operands, operators[0])],
+            };
+          case 2:
+            /**
+             * [2, 3] [+, =] -> [2, 5] [+, =]
+             */
+            return {
+              ...s,
+              operands: [operands[0], operate(operands, operators[0])],
+            };
+
+          default:
+            return s;
+        }
 
       default:
         return s;
