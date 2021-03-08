@@ -208,13 +208,13 @@ export function handleOperator(s: State, key: string): State {
         case 2:
           /**
            * incoming +
-           * [1, 2] [+] -> [3] [+]
+           * [1, 2] [+] -> [3] [x]
            * case of 1 + 2 +
            */
           return {
             ...s,
-            operands: [operate(operands, key).toString()],
-            operators,
+            operands: [operate(operands, operators[0]).toString()],
+            operators: [key],
           };
         default:
           return s;
