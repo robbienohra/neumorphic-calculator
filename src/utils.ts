@@ -98,6 +98,13 @@ export function handleNumeric(s: State, key: string): State {
 export function handleOperator(s: State, key: string): State {
   const { operands, operators } = s;
 
+  /**
+   * clear
+   */
+  if (key === 'C') {
+    return { operators: [], operands: ['0'] };
+  }
+
   if (key === '=') {
     switch (operands.length) {
       case 1:
