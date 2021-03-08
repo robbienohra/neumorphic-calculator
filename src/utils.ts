@@ -128,6 +128,23 @@ export function handleOperator(s: State, key: string): State {
     }
   }
 
+  if (key === '%') {
+    switch (operands.length) {
+      case 1:
+        return {
+          ...s,
+          operands: [new Big(operands[0]).div(100).toString()],
+        };
+      case 2:
+        return {
+          ...s,
+          operands: [operands[0], new Big(operands[1]).div(100).toString()],
+        };
+      default:
+        return s;
+    }
+  }
+
   if (key === '=') {
     switch (operands.length) {
       case 1:
