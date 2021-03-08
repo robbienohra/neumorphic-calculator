@@ -4,7 +4,7 @@
   padding: 50px 40px 40px 40px
 }
 
-.calculator * + * {
+.calculator > * + * {
   margin-top: 1rem;
 }
 
