@@ -2,7 +2,7 @@
 
 - A neumorphic styled calculator built in React, Next, and Sass
 
-[Live demo](https://neumorphic-calculator-8u4ln5vx9-robbienohra.vercel.app/)
+[Live demo](https://neumorphic-calculator-robbienohra.vercel.app/)
 
 # includes
 
