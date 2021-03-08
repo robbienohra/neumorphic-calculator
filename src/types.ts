@@ -2,6 +2,7 @@
  * current calculator state
  * one of current total or value is null depending on state op operation
  */
+
 export type State = {
   operands: Array<string>;
   operators: Array<string>;
@@ -21,7 +22,7 @@ export type Action = {
   numeric: boolean;
 };
 
-export type Key = {
-  k: string;
-  v: string;
+export type Button = {
+  key: string;
+  numeric: boolean;
 };

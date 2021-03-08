@@ -1,7 +1,19 @@
+import { Dispatch } from 'react';
 import styles from '../styles/Key.module.scss';
+import { Action, Button } from '../types';
 
-export const Key = ({ val }: { val: string }): JSX.Element => {
-  return <div className={styles.default}>{val}</div>;
+export const Key = ({
+  button: { key, numeric },
+  dispatch,
+}: {
+  button: Button;
+  dispatch: Dispatch<Action>;
+}): JSX.Element => {
+  return (
+    <div onClick={() => dispatch({ key, numeric })} className={styles.default}>
+      {key}
+    </div>
+  );
 };
 
 export const Zero = (): JSX.Element => {

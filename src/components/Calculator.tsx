@@ -20,7 +20,7 @@ export default function Calculator() {
           state.operands.length === 1 ? state.operands[0] : state.operands[1]
         }
       />
-      <Keypad />
+      <Keypad dispatch={dispatch} />
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import Big from 'big.js';
-import { State } from './types';
+import { Button, State } from './types';
 
 export const initial: State = {
   operands: ['0'],
@@ -200,3 +200,17 @@ export function handleOperator(s: State, key: string): State {
       return s;
   }
 }
+
+export const generateNumericKey = (key: string): Button => {
+  return {
+    key,
+    numeric: true,
+  };
+};
+
+export const generateOperatorKey = (key: string): Button => {
+  return {
+    key,
+    numeric: false,
+  };
+};
