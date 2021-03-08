@@ -2,27 +2,26 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  // neumorhic styling
   border-radius: 50px;
-  background: #e0e0e0;
+  background-color: #DBE1E9;
+  border: thin white solid;
   box-shadow:  20px 20px 60px #bebebe,
   -20px -20px 60px #ffffff;
 }
 
 @mixin inset {
-  border-radius: 50px;
-  background: #e0e0e0;
+  background: #DBE1E9;
   box-shadow: inset 20px 20px 60px #bebebe,
   inset -20px -20px 60px #ffffff;
 }
 
 .default {
   @include key;
-  height: 4rem;
-  width: 4rem;
+  height: 4.5rem;
+  width: 4.5rem;
 }
 
-.default:hover {
+.default:active {
   @include inset
 }
 

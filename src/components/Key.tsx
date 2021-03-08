@@ -14,6 +14,7 @@ export const Key = memo(
       <div
         onClick={() => dispatch({ key, numeric })}
         className={styles.default}
+        data-cy={key}
       >
         {key}
       </div>
@@ -22,6 +23,17 @@ export const Key = memo(
   () => true
 );
 
-export const Zero = (): JSX.Element => {
-  return <div className={styles.zero}>0</div>;
+export const Zero = ({
+  dispatch,
+}: {
+  dispatch: Dispatch<Action>;
+}): JSX.Element => {
+  return (
+    <div
+      onClick={() => dispatch({ key: '0', numeric: true })}
+      className={styles.zero}
+    >
+      0
+    </div>
+  );
 };

@@ -30,14 +30,14 @@ export default function Keypad({
 }): JSX.Element {
   return (
     <div className={styles.keypad}>
-      {buttons.map((row: Button[]) => {
+      {[topKeys, ...buttons].map((row: Button[]) => {
         return row.map((button: Button) => (
           <Key key={button.key} button={button} dispatch={dispatch} />
         ));
       })}
-      <Zero />
-      <Key button={{ key: '.', numeric: false }} dispatch={dispatch} />
-      <Key button={{ key: '=', numeric: false }} dispatch={dispatch} />
+      <Zero key="0" dispatch={dispatch} />
+      <Key key="." button={{ key: '.', numeric: false }} dispatch={dispatch} />
+      <Key key="=" button={{ key: '=', numeric: false }} dispatch={dispatch} />
     </div>
   );
 }
