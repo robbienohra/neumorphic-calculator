@@ -35,9 +35,9 @@ export default function Keypad({
           <Key key={button.key} button={button} dispatch={dispatch} />
         ));
       })}
-      <Zero key="0" dispatch={dispatch} />
-      <Key key="." button={{ key: '.', numeric: false }} dispatch={dispatch} />
-      <Key key="=" button={{ key: '=', numeric: false }} dispatch={dispatch} />
+      {/*<Zero key="0" dispatch={dispatch} />*/}
+      {/*<Key key="." button={{ key: '.', numeric: false }} dispatch={dispatch} />*/}
+      {/*<Key key="=" button={{ key: '=', numeric: false }} dispatch={dispatch} />*/}
     </div>
   );
 }
