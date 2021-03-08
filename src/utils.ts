@@ -24,6 +24,12 @@ export function operate(operands: Array<string>, operator: string): string {
   switch (operator) {
     case '+':
       return x.add(y).toString();
+    case '-':
+      return x.minus(y).toString();
+    case 'x':
+      return x.times(y).toString();
+    case '/':
+      return x.div(y).toString();
     default:
       return x.add(y).toString();
   }
