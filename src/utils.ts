@@ -14,7 +14,7 @@ export const initial: State = {
  *
  * @returns {string} - operation result
  */
-export function operate(operands: Array<string>, operator: string): string {
+export function operate(operands: string[], operator: string): string {
   const x = new Big(operands[0]);
   const y = new Big(operands[1]);
   /**
@@ -191,8 +191,23 @@ export function handleOperator(s: State, key: string): State {
             };
           case 2:
             /**
+             * 2 would have been cached in the above case
              * [2, 3] [+, =] -> [2, 5] [+, =]
+             *
+             * subtraction is non-commutative
+             * cached value needs to be second
+             * [2, -1] [-, =] ->
              */
+
+            if (operators[0] === '-') {
+              return {
+                ...s,
+                operands: [
+                  operands[0],
+                  operate([operands[1], operands[0]], operators[0]),
+                ],
+              };
+            }
             return {
               ...s,
               operands: [operands[0], operate(operands, operators[0])],
@@ -230,12 +245,12 @@ export function handleOperator(s: State, key: string): State {
       switch (operands.length) {
         case 1:
           /**
-           * [1] [+] -> [1] [-]
+           * [1] [+] -> [1] [*]
            * replace with new operator
            */
           return {
             ...s,
-            operands: [key],
+            operators: [key],
           };
         case 2:
           /**
@@ -253,9 +268,11 @@ export function handleOperator(s: State, key: string): State {
       }
     case 2:
       /**
-       * [+, =] example
+       * two cases
+       * [+, =]
        * will always be associated with two operands
        * [1, 2] [+,=] -> [2] [+]
+       * historical operation here would have been consecutive equal
        */
       return { operands: [operands[1]], operators: [key] };
     default:

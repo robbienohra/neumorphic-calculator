@@ -11,9 +11,3 @@ describe('numeric', () => {
     });
   });
 });
-
-// describe('operator', () => {
-//   it('degenerate operator', () => {
-//     expect(keyReducer(initial, { key: '+', numeric: false })).toEqual(initial);
-//   });
-// });

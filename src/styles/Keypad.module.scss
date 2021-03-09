@@ -10,6 +10,8 @@
   display: grid;
 }
 
+// aspect-ratio trick for dynamic square
+
 .keypad > div::before {
   content: "";
   padding-bottom: 100%;
