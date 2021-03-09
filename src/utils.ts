@@ -145,6 +145,29 @@ export function handleOperator(s: State, key: string): State {
     }
   }
 
+  if (key === '.') {
+    switch (operands.length) {
+      case 1:
+        if (operands[0].includes('.')) {
+          return s;
+        }
+        return {
+          ...s,
+          operands: [`${operands[0]}.`],
+        };
+      case 2:
+        if (operands[1].includes('.')) {
+          return s;
+        }
+        return {
+          ...s,
+          operands: [operands[0], `${operands[1]}.`],
+        };
+      default:
+        return s;
+    }
+  }
+
   if (key === '=') {
     switch (operands.length) {
       case 1:
