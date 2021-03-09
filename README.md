@@ -9,3 +9,5 @@
 - TypeScript
 - Cypress testing
 - Jest unit tests
+- CSS Grid
+- Fluid layout
