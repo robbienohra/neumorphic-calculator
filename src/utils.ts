@@ -14,7 +14,7 @@ export const initial: State = {
  *
  * @returns {string} - operation result
  */
-export function operate(operands: Array<string>, operator: string): string {
+export function operate(operands: string[], operator: string): string {
   const x = new Big(operands[0]);
   const y = new Big(operands[1]);
   /**
@@ -167,14 +167,6 @@ export function handleOperator(s: State, key: string): State {
                 operate([operands[0], operands[0]], operators[0]),
               ],
             };
-          case 2:
-            /**
-             * [1] [+, -] -> [-1, 1 -1] [+, =]
-             */
-            return {
-              operands: [new Big(operands[0]).times(-1).toString(), '0'],
-              operators: [operators[0], '='],
-            };
           default:
             return s;
         }
@@ -201,7 +193,21 @@ export function handleOperator(s: State, key: string): State {
             /**
              * 2 would have been cached in the above case
              * [2, 3] [+, =] -> [2, 5] [+, =]
+             *
+             * subtraction is non-commutative
+             * cached value needs to be second
+             * [2, -1] [-, =] ->
              */
+
+            if (operators[0] === '-') {
+              return {
+                ...s,
+                operands: [
+                  operands[0],
+                  operate([operands[1], operands[0]], operators[0]),
+                ],
+              };
+            }
             return {
               ...s,
               operands: [operands[0], operate(operands, operators[0])],
@@ -238,16 +244,6 @@ export function handleOperator(s: State, key: string): State {
        */
       switch (operands.length) {
         case 1:
-          /**
-           * special case of - treated as negative operator
-           * [1] [+] -> [1] [+, -]
-           */
-          if (key === '-') {
-            return {
-              ...s,
-              operators: [operators[0], key],
-            };
-          }
           /**
            * [1] [+] -> [1] [*]
            * replace with new operator
