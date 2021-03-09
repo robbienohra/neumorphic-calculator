@@ -11,7 +11,7 @@ export default function App(): JSX.Element {
       <h1>Neumorphic calculator</h1>
       <Container fluid>
         <Row className="justify-content-center">
-          <Col xs={12} sm={10} md={8} lg={4}>
+          <Col xs={12} sm={10} md={8} lg={6} xl={4}>
             <Calculator />
           </Col>
         </Row>
