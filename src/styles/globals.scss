@@ -17,6 +17,7 @@ body {
 main {
   @include typography;
 }
+
 input {
   all: unset;
   @include typography;
@@ -30,3 +31,16 @@ h1 {
 * {
   box-sizing: border-box;
 }
+
+// boostrap
+
+@import '~bootstrap/scss/mixins';
+@import '~bootstrap/scss/bootstrap-grid.scss';
+@import '~bootstrap/scss/dropdown';
+@import '~bootstrap/scss/modal';
+@import '~bootstrap/scss/toasts';
+@import '~bootstrap/scss/tooltip';
+@import '~bootstrap/scss/breadcrumb';
+@import '~bootstrap/scss/transitions';
+@import '~bootstrap/scss/navbar';
+@import '~bootstrap/scss/variables';

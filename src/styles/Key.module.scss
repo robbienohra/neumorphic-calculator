@@ -29,8 +29,10 @@
 .zero {
   @include key;
   grid-area: unset;
+  display: flex;
   border-radius: 12px;
   grid-column: span 2;
+  align-items: center;
 }
 
 .zero:active {

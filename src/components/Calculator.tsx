@@ -6,11 +6,10 @@ import { keyReducer } from '../reducers';
 import { initial } from '../utils';
 import { Action, State } from '../types';
 
-
 /**
  *
  * @returns {JSX.Element}
- * @constructor
+ * @class
  */
 export default function Calculator() {
   const [state, dispatch] = useReducer<Reducer<State, Action>>(
