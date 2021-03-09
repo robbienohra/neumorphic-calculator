@@ -16,7 +16,11 @@ body {
 
 main {
   @include typography;
+  display: grid;
+  grid-template-columns: 0.75fr;
+  justify-content: center;
 }
+
 input {
   all: unset;
   @include typography;
